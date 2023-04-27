@@ -6,15 +6,16 @@ import com.example.fakestoreapi.models.Categories
 import com.example.fakestoreapi.models.ProductResponse
 import com.example.fakestoreapi.models.Resources
 import com.example.fakestoreapi.network.FakeStoreAPI
+import javax.inject.Inject
 
-class DataRepository(val fakeStoreAPI: FakeStoreAPI) {
+class DataRepository @Inject constructor(val fakeStoreAPI: FakeStoreAPI) {
 
     private val _categoriesList = MutableLiveData<Resources<Categories>>()
 
     val categoriesList: LiveData<Resources<Categories>> get() = _categoriesList
 
-    private val _categoryItemsList = MutableLiveData<Resources<ProductResponse>>()
-    val categoryItemsList : LiveData<Resources<ProductResponse>> get() = _categoryItemsList
+    private val _productsList = MutableLiveData<Resources<ProductResponse>>()
+    val productsList : LiveData<Resources<ProductResponse>> get() = _productsList
 
     suspend fun getCategories(){
         _categoriesList.postValue(Resources.Loading())
@@ -22,8 +23,8 @@ class DataRepository(val fakeStoreAPI: FakeStoreAPI) {
 
         try{
 
-            if (result?.body() !=null){
-                _categoriesList.postValue(Resources.Success(result?.body()))
+            if (result.body() !=null){
+                _categoriesList.postValue(Resources.Success(result.body()))
             }
 
         }catch (e:Exception){
@@ -32,18 +33,18 @@ class DataRepository(val fakeStoreAPI: FakeStoreAPI) {
     }
 
     suspend fun getCategoryItems(categoryName:String){
-        _categoryItemsList.postValue(Resources.Loading())
+        _productsList.postValue(Resources.Loading())
 
         val result = fakeStoreAPI.getCategoryItems(categoryName)
 
         try{
 
             if (result?.body() !=null){
-                _categoryItemsList.postValue(Resources.Success(result?.body()))
+                _productsList.postValue(Resources.Success(result?.body()))
             }
 
         }catch (e:Exception){
-            _categoryItemsList.postValue(Resources.Error(e.message.toString()))
+            _productsList.postValue(Resources.Error(e.message.toString()))
         }
     }
 }

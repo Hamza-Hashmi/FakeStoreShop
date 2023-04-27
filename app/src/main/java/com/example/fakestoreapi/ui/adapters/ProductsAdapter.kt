@@ -1,4 +1,4 @@
-package com.example.fakestoreapi.adapters
+package com.example.fakestoreapi.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,10 +9,13 @@ import coil.transform.RoundedCornersTransformation
 import com.example.fakestoreapi.databinding.LayoutProductBinding
 import com.example.fakestoreapi.models.ProductResponse
 import com.example.fakestoreapi.models.ProductItems
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.CategoryItemsViewHolder>() {
+@Singleton
+class ProductsAdapter @Inject constructor():RecyclerView.Adapter<ProductsAdapter.CategoryItemsViewHolder>() {
 
-    var categoryItemsList: ProductResponse = ProductResponse()
+    var productsList: ProductResponse = ProductResponse()
     var onItemClick:((categoryName:String) -> Unit)? = null
     class CategoryItemsViewHolder(val binding: LayoutProductBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -32,8 +35,8 @@ class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.CategoryItemsViewHold
 
 
     fun submitList(data: ProductResponse) {
-        categoryItemsList.clear()
-        categoryItemsList = data
+        productsList.clear()
+        productsList = data
     }
 
     override fun onCreateViewHolder(
@@ -45,13 +48,13 @@ class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.CategoryItemsViewHold
     }
 
     override fun getItemCount(): Int {
-        return categoryItemsList.size
+        return productsList.size
     }
 
     override fun onBindViewHolder(holder: CategoryItemsViewHolder, position: Int) {
-        holder.bind(categoryItemsList[position])
+        holder.bind(productsList[position])
         holder.itemView.setOnClickListener {
-            onItemClick?.invoke(categoryItemsList[position].category)
+            onItemClick?.invoke(productsList[position].category)
         }
     }
 }

@@ -1,21 +1,21 @@
-package com.example.fakestoreapi
+package com.example.fakestoreapi.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import com.example.fakestoreapi.MyApplication.Companion.fakeStoreAPI
-import com.example.fakestoreapi.dataSource.repositroires.RegistrationRepo
+import com.example.fakestoreapi.beGone
+import com.example.fakestoreapi.beVisible
 import com.example.fakestoreapi.databinding.ActivityRegistrationBinding
 import com.example.fakestoreapi.models.Resources
 import com.example.fakestoreapi.models.User
+import com.example.fakestoreapi.startNewActivity
 import com.example.fakestoreapi.utils.UserPreferences
-import com.example.fakestoreapi.viewModels.RegistrationProviderFactory
-import com.example.fakestoreapi.viewModels.RegistrationViewModel
+import com.example.fakestoreapi.ui.viewModels.RegistrationViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,7 +24,8 @@ import kotlinx.coroutines.runBlocking
 class RegistrationActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityRegistrationBinding
-    lateinit var registrationViewModel: RegistrationViewModel
+    val registrationViewModel: RegistrationViewModel by viewModels()
+
     lateinit var dataStore:UserPreferences
     private var userId:String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +53,9 @@ class RegistrationActivity : AppCompatActivity() {
                 binding.layoutRegistration.beVisible()
         }
 
-        val registrationRepo = RegistrationRepo(fakeStoreAPI)
+//        val registrationRepo = RegistrationRepo(fakeStoreAPI)
 
-        registrationViewModel = ViewModelProvider(this,RegistrationProviderFactory(registrationRepo)).get(RegistrationViewModel::class.java)
+//        registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
 
         binding.apply {
             btnSignup.setOnClickListener {
@@ -84,7 +85,7 @@ class RegistrationActivity : AppCompatActivity() {
                             lifecycleScope.launch {
                                 dataStore.saveUserId(it.data?.id!!)
                             }
-                            startActivity(Intent(this@RegistrationActivity,MainActivity::class.java))
+                            startActivity(Intent(this@RegistrationActivity, MainActivity::class.java))
                             //Toast.makeText(this@RegistrationActivity, "id  = " + it.data?.id.toString(), Toast.LENGTH_SHORT).show()
 
                         }

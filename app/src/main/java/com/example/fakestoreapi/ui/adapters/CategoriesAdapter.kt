@@ -1,4 +1,4 @@
-package com.example.fakestoreapi.adapters
+package com.example.fakestoreapi.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,11 @@ import com.example.fakestoreapi.R
 import com.example.fakestoreapi.databinding.LayoutCategoriesBinding
 
 import com.example.fakestoreapi.models.Categories
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CategoriesAdapter:RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
+@Singleton
+class CategoriesAdapter @Inject constructor() : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
 
     var categoryList:Categories? = Categories()
     var onItemClick:((categoryName:String) -> Unit)? = null

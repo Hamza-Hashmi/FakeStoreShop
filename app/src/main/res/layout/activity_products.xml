@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C8CFCF"
-    tools:context=".ProductsActivity">
+    tools:context=".ui.activities.ProductsActivity">
     
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"

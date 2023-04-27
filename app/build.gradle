@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -78,9 +80,14 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     // dataStore preferences
-  /*  implementation "androidx.datastore:datastore-preferences:1.0.0"*/
 
     implementation "androidx.datastore:datastore-preferences:1.1.0-alpha01"
-/*
-    implementation "androidx.datastore:datastore-core:1.0.0"*/
+
+    // hilt
+    // hilt
+    implementation 'com.google.dagger:hilt-android:2.44'
+    kapt 'com.google.dagger:hilt-compiler:2.44'
+
+
+    implementation "androidx.activity:activity-ktx:1.7.1"
 }

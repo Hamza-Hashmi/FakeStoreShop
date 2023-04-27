@@ -1,21 +1,25 @@
-package com.example.fakestoreapi
+package com.example.fakestoreapi.ui.activities
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.example.fakestoreapi.adapters.ProductsAdapter
-import com.example.fakestoreapi.dataSource.repositroires.DataRepository
+import com.example.fakestoreapi.ui.adapters.ProductsAdapter
+import com.example.fakestoreapi.beGone
+import com.example.fakestoreapi.beVisible
 import com.example.fakestoreapi.databinding.ActivityProductsBinding
 import com.example.fakestoreapi.models.Resources
-import com.example.fakestoreapi.viewModels.CategoriesProviderFactory
-import com.example.fakestoreapi.viewModels.CategoriesViewModel
+import com.example.fakestoreapi.ui.viewModels.CategoriesViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProductsActivity : AppCompatActivity() {
 
 
-    private lateinit var viewModel:CategoriesViewModel
-    lateinit var adapter: ProductsAdapter
+    val  viewModel: CategoriesViewModel by viewModels()
+   @Inject
+   lateinit var adapter: ProductsAdapter
     lateinit var binding:ActivityProductsBinding
 
 
@@ -26,11 +30,13 @@ class ProductsActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val dataRepo = DataRepository(MyApplication.fakeStoreAPI)
+   //     val dataRepo = DataRepository(MyApplication.fakeStoreAPI)
 
-        viewModel = ViewModelProvider(this, CategoriesProviderFactory(dataRepo)).get(CategoriesViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(CategoriesViewModel::class.java)
 
+/*
         adapter = ProductsAdapter()
+*/
 
         val categoryName = intent.getStringExtra("categoryName")
 

@@ -1,4 +1,4 @@
-package com.example.fakestoreapi.viewModels
+package com.example.fakestoreapi.ui.viewModels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -7,10 +7,13 @@ import com.example.fakestoreapi.dataSource.repositroires.DataRepository
 import com.example.fakestoreapi.models.Categories
 import com.example.fakestoreapi.models.ProductResponse
 import com.example.fakestoreapi.models.Resources
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoriesViewModel(val repo:DataRepository) :ViewModel(){
+@HiltViewModel
+class CategoriesViewModel @Inject constructor(val repo:DataRepository) :ViewModel(){
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -29,6 +32,6 @@ class CategoriesViewModel(val repo:DataRepository) :ViewModel(){
 
     }
 
-    val categoryItems:LiveData<Resources<ProductResponse>> get() = repo.categoryItemsList
+    val categoryItems:LiveData<Resources<ProductResponse>> get() = repo.productsList
 
 }

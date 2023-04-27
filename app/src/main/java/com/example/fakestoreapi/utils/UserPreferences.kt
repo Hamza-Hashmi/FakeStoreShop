@@ -5,11 +5,19 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserPreferences(
-    context: Context
+
+class UserPreferences (
+    val  context: Context
 ) {
     private val Context.dataStore by preferencesDataStore("app_preferences")
 
@@ -32,4 +40,5 @@ class UserPreferences(
     companion object {
         val KEY_ID = stringPreferencesKey("key_id")
     }
+
 }
