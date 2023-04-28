@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "FakeStoreAPI"
-include ':app'
+include (":app")
